@@ -1,4 +1,4 @@
-package algogo_test
+package sorting_test
 
 import (
 	"testing"
