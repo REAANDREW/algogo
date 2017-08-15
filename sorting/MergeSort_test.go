@@ -6,11 +6,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func MergeSort(input []int) (returnValue []int) {
-	returnValue = []int{}
-	return
-}
-
 func Merge(l []int, r []int) (returnValue []int) {
 	returnValue = make([]int, 0, len(l)+len(r))
 	for len(l) > 0 || len(r) > 0 {
@@ -63,6 +58,33 @@ func TestMergeReturnsRightThenLeft(t *testing.T) {
 	var output = Merge(l, r)
 	var expected = []int{1, 2}
 	assert.Equal(t, expected, output)
+}
+
+func TestMergeReturnsLeftThenRightThenLeft(t *testing.T) {
+	var l = []int{1, 3}
+	var r = []int{2}
+	var output = Merge(l, r)
+	var expected = []int{1, 2, 3}
+	assert.Equal(t, expected, output)
+}
+
+func TestMergeReturnsRightThenLeftThenRight(t *testing.T) {
+	var l = []int{2}
+	var r = []int{1, 3}
+	var output = Merge(l, r)
+	var expected = []int{1, 2, 3}
+	assert.Equal(t, expected, output)
+}
+
+func MergeSort(input []int) (returnValue []int) {
+	if len(input) <= 1 {
+		return input
+	}
+	var n = len(input) / 2
+	var l = MergeSort(input[:n])
+	var r = MergeSort(input[n:])
+
+	return Merge(l, r)
 }
 
 func TestMergeSort(t *testing.T) {
